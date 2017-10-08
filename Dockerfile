@@ -1,4 +1,4 @@
-FROM nodered/node-red-docker:latest
+FROM nodered/node-red-docker:rpi
 
 
 RUN npm -s install moment node-red-contrib-config node-red-contrib-grove node-red-contrib-diode node-red-contrib-bigtimer \
