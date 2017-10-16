@@ -9,5 +9,5 @@ RUN npm -s install moment node-red-contrib-config node-red-contrib-grove node-re
 			node-red-contrib-file-function node-red-contrib-boolean-logic node-red-contrib-blynk-websockets node-red-contrib-chatbot \
 			node-red-dashboard node-red-node-darksky node-red-node-serialport node-red-contrib-owntracks \
                         node-red-contrib-predix-timeseries node-red-contrib-browser-utils node-red-contrib-googlechart \
-                        node-red-contrib-csvtojson node-red-contrib-json2csv node-red-contrib-protocolbuffersnode
+                        node-red-contrib-csvtojson node-red-contrib-json2csv node-red-contrib-protocolbuffersnode protobufjs
 
