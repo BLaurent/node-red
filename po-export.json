@@ -1,0 +1,274 @@
+[
+    {
+        "id": "ad7807ac.2edaa8",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "b4c814b2.8ff258",
+        "type": "ui_template",
+        "z": "ad7807ac.2edaa8",
+        "group": "8c835b71.899ac8",
+        "name": "CSV import",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div ng-bind-html=\"msg.payload\"></div>  \n<form id=\"xSubmit\" action=\"/csv-import\" method=\"post\" enctype=\"multipart/form-data\">\n    <label class=\"md-secondary md-raised md-button bring-forward\" md-ink-ripple for=\"xFile\">\n          <span>Select File</span>\n    </label>\n    <input type=\"file\" accept=\".csv\" name=\"xFile\" id=\"xFile\" class=\"file-input-hide\" >\n</form>\n\n<script>\n    document.getElementById(\"xFile\").onchange = function() {\n    document.getElementById(\"xSubmit\").submit();\n};\n</script>\n<style>\n .file-input-hide {\n     position: relative;\n     left: -6em;\n }\n .bring-forward {\n     z-index:10;\n }\n\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 470,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d79fa163.dd938",
+        "type": "http in",
+        "z": "ad7807ac.2edaa8",
+        "name": "csv-import",
+        "url": "/csv-import",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "4bdbd017.88658",
+                "1e32b9ad.30e646",
+                "937a30c.2f0f4d"
+            ]
+        ]
+    },
+    {
+        "id": "97085a12.81b8d8",
+        "type": "csv to json ext",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "version": "0.1",
+        "source": "payload",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": false,
+        "trim": false,
+        "noheader": false,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 910,
+        "y": 200,
+        "wires": [
+            [
+                "8b470116.68743",
+                "3cca6c4b.3b08e4"
+            ]
+        ]
+    },
+    {
+        "id": "4bdbd017.88658",
+        "type": "function",
+        "z": "ad7807ac.2edaa8",
+        "name": "get csv buffer",
+        "func": "return { payload: msg.req.files[0].buffer.toString('utf8') };",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "97085a12.81b8d8"
+            ]
+        ]
+    },
+    {
+        "id": "3cca6c4b.3b08e4",
+        "type": "debug",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1110,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1e32b9ad.30e646",
+        "type": "http response",
+        "z": "ad7807ac.2edaa8",
+        "name": "csv import status",
+        "statusCode": "303",
+        "headers": {
+            "location": "/ui/#/0"
+        },
+        "x": 670,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bf3f8a11.5228e8",
+        "type": "ui_text",
+        "z": "ad7807ac.2edaa8",
+        "group": "8c835b71.899ac8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Last CSV Loaded",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 950,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "937a30c.2f0f4d",
+        "type": "function",
+        "z": "ad7807ac.2edaa8",
+        "name": "get csv file name",
+        "func": "return { payload: msg.req.files[0].originalname };\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 670,
+        "y": 280,
+        "wires": [
+            [
+                "bf3f8a11.5228e8"
+            ]
+        ]
+    },
+    {
+        "id": "8b470116.68743",
+        "type": "mqtt out",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "topic": "csv-input",
+        "qos": "",
+        "retain": "",
+        "broker": "ccd6dfa6.2bc47",
+        "x": 1120,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "1ccce826.f47cd8",
+        "type": "ui_chart",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "group": "b4c4ffa6.9796e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 690,
+        "y": 600,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "208e9af2.a91766",
+        "type": "mqtt in",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "topic": "results",
+        "qos": "2",
+        "broker": "ccd6dfa6.2bc47",
+        "x": 450,
+        "y": 600,
+        "wires": [
+            [
+                "1ccce826.f47cd8",
+                "2b835c8f.f24a14"
+            ]
+        ]
+    },
+    {
+        "id": "2b835c8f.f24a14",
+        "type": "debug",
+        "z": "ad7807ac.2edaa8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 730,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8c835b71.899ac8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Import CSV",
+        "tab": "78eb1047.180db",
+        "order": 1,
+        "disp": true,
+        "width": "10"
+    },
+    {
+        "id": "ccd6dfa6.2bc47",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.17.0.3",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "b4c4ffa6.9796e",
+        "type": "ui_group",
+        "z": "",
+        "name": "Display Parameters",
+        "tab": "78eb1047.180db",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "78eb1047.180db",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
