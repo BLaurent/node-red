@@ -7,6 +7,6 @@ RUN npm -s install moment node-red-contrib-config node-red-contrib-grove node-re
       node-red-contrib-isonline node-red-node-ping node-red-node-random node-red-node-smooth node-red-contrib-npm node-red-node-arduino \
       node-red-contrib-file-function node-red-contrib-boolean-logic node-red-contrib-blynk-websockets node-red-contrib-chatbot \
       node-red-dashboard node-red-node-darksky node-red-node-serialport node-red-contrib-owntracks node-red-contrib-opi-gpio \
-      node-red-contrib-predix-timeseries node-red-contrib-browser-utils node-red-contrib-googlechart \
+      node-red-contrib-predix-timeseries node-red-contrib-browser-utils node-red-contrib-googlechart node-red-contrib-bigexec \
       node-red-contrib-csvtojson node-red-contrib-json2csv passport-cloudfoundry node-red-contrib-postgres
 
